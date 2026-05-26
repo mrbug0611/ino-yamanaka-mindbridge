@@ -5,23 +5,24 @@ Inspired by Ino Yamanaka's Telepathic Coordination
 
 """
 
-import asyncio # allows use in await/async syntax
 import logging # log for better debugging errors
 from contextlib import asynccontextmanager # make asynchronous context managers
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-#from .database import init_db, close_db
+from database import init_db, close_db
 
 logging.basicConfig(level=logging.INFO) # do basic config for logging system
 logger = logging.getLogger(__name__) # return logger with specified name
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI): # app: FastAPI is python type hint
     logger.info("MindBridge initializing neural pathways...")
+    await init_db()
     yield
     logger.info("MindBridge shutting down neural pathways...")
+    await close_db()
 
 app = FastAPI(
     title="MindBridge API",
