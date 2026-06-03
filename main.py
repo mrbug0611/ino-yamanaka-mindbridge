@@ -16,7 +16,7 @@ from database import init_db, close_db
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from routers import Users, Sessions
+from routers import Users, Sessions, Signals
 
 
 @asynccontextmanager
@@ -44,6 +44,7 @@ app.add_middleware(
 
 app.include_router(Users.router, prefix="/api/users", tags=["users"])
 app.include_router(Sessions.router, prefix="/api/sessions", tags=["sessions"])
+app.include_router(Signals.router, prefix="/api/signals", tags=["signals"])
 
 @app.get("/api/health")
 async def health_check():
