@@ -8,7 +8,6 @@ from database import get_db, release_db
 from models import SignalResponse, SignalCreate, gen_id, ReactionAdd
 from services.Nlp import classify_signal, route_signal
 from services.ConnectionManager import manager
-
 router = APIRouter()
 
 
@@ -152,6 +151,7 @@ async def create_signal(signal: SignalCreate):
 
     finally:
         await release_db(conn)
+
 
 @router.get("/session/{session_id}", response_model=List[SignalResponse])
 async def get_session_signals(session_id: str, limit: int = 100):
