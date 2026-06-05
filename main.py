@@ -12,9 +12,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from database import init_db, close_db
+from services.Background import BackgroundTaskManager
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+task_manager = BackgroundTaskManager()
 
 from routers import Users, Sessions, Signals, Ws
 
@@ -23,8 +26,10 @@ from routers import Users, Sessions, Signals, Ws
 async def lifespan(app: FastAPI):
     logger.info("MindBridge initializing neural pathways...")
     await init_db()
+    await task_manager.start()
     yield
     logger.info("MindBridge shutting down neural pathways...")
+    await task_manager.stop()
     await close_db()
 
 app = FastAPI(
