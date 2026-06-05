@@ -1,0 +1,114 @@
+# .coderabbit.yaml
+# CodeRabbit configuration for MindBridge
+# Docs: https://docs.coderabbit.ai/guides/configure-coderabbit
+
+language: "en-US"
+
+reviews:
+  profile: "assertive"       # thorough reviews, not just style nits
+  request_changes_workflow: false  # don't block merges, just comment
+
+  # Auto-review every PR and push
+  auto_review:
+    enabled: true
+    drafts: false            # skip draft PRs
+    base_branches:
+      - "main"
+      - "dev"
+
+  # What CodeRabbit focuses on for this project
+  high_level_summary: true
+  poem: false                # skip the poem in review summaries
+  review_status: true        # show a status check on the PR
+
+  # Paths CodeRabbit should review
+  path_filters:
+    - "**/*.py"                # all Python code
+    - "routers/**"              # backend API routers
+    - "services/**"             # backend services (NLP, WebSocket, background tasks)
+    - "database.py"             # database schema and connection management
+    - "tests/**"
+    - "frontend/src/**"
+    - "!**/__pycache__/**"
+    - "!**/*.pyc"
+    - "!**/test_mindbridge.db"
+    - "!**/mindbridge.db"
+
+  path_instructions:
+    # Backend API routers — focus on validation and error handling
+    - path: "/routers/**"
+      instructions: |
+        Focus on:
+        - Missing input validation or edge cases in request bodies
+        - HTTP status codes being used correctly
+        - All database connections being released in finally blocks
+        - SQL injection risks or unsafe query construction
+        - Unhandled exceptions that would return 500s to the client
+
+    # NLP service — correctness and performance
+    - path: "/services/nlp.py"
+      instructions: |
+        Focus on:
+        - Correctness of cosine similarity calculations
+        - Edge cases in classify_signal (empty string, very long input, non-ASCII)
+        - Whether the keyword fallback and semantic backend produce consistent output shapes
+        - Performance: anything that would be slow on high message volume
+        - Whether topic exemplars are representative enough for accurate routing
+
+    # WebSocket and connection manager — concurrency safety
+    - path: "/services/connection_manager.py"
+      instructions: |
+        Focus on:
+        - Race conditions around connect/disconnect under concurrent load
+        - Memory leaks — sessions or users that never get cleaned up
+        - Whether dead connections are handled without crashing the broadcast loop
+        - Correctness of broadcast_to_routed: full signal to routed users,
+          shadow signal to everyone else, sender gets full signal
+
+    # Background task manager — async correctness
+    - path: "/services/background.py"
+      instructions: |
+        Focus on:
+        - Whether a failing task can silently stop the worker
+        - Whether stop() can hang if the queue is full or a task is blocking
+        - Whether task_done() is always called, even on exception
+
+    # Database — schema and query safety
+    - path: "/database.py"
+      instructions: |
+        Focus on:
+        - Whether all tables have appropriate indexes for query patterns
+        - JSONB columns being used and decoded consistently
+        - Whether init_db is truly idempotent (safe to run on every startup)
+        - Connection pool sizing — min/max appropriate for expected load
+
+    # Tests — coverage and quality
+    - path: "tests/**"
+      instructions: |
+        Focus on:
+        - Tests that only test the happy path and miss edge cases
+        - Assertions that are too loose (e.g. just checking a key exists)
+        - Missing tests for the behaviors described in each module's docstring
+        - Whether the SQLite shim in test_api.py faithfully represents
+          PostgreSQL behavior for the operations being tested
+
+    # Frontend — React correctness
+    - path: "frontend/src/**"
+      instructions: |
+        Focus on:
+        - WebSocket connections not being cleaned up on component unmount
+        - State updates on unmounted components
+        - Missing error handling for failed fetch() calls
+        - Any hardcoded localhost URLs that would break in production
+
+# What CodeRabbit learns about this codebase
+knowledge_base:
+  learnings:
+    scope: auto              # learn from PR discussions over time
+
+  issues:
+    scope: auto              # link reviews to GitHub issues when relevant
+
+# Chat — allow @coderabbitai mentions in PR comments
+chat:
+  auto_reply: true

@@ -1,0 +1,29 @@
+# pyproject.toml — Ruff configuration for MindBridge
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["", "tests", "services", "routers"]
+
+[tool.ruff.lint]
+select = [
+    "E",     # pycodestyle errors
+    "W",     # pycodestyle warnings
+    "F",     # pyflakes
+    "I",     # isort
+    "B",     # flake8-bugbear — catches real bugs, not just style
+    "UP",    # pyupgrade — keeps syntax modern
+    "ASYNC", # flake8-async — flags blocking calls in async functions
+]
+ignore = [
+    "E501",  # line too long — handled by formatter
+    "B008",  # function calls in default arguments (FastAPI Depends() pattern)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["backend"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
