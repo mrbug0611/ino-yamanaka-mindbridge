@@ -105,6 +105,7 @@ async def create_signal(signal: SignalCreate):
             members=members,
             sender_id=signal.sender_id,
             content=signal.content,
+            signal_emb=classification.get("signal_emb") # pass all the way through
         )
 
         # persist signal - routed_to stored as jsonb

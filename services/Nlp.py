@@ -216,6 +216,11 @@ class SemanticClassifier:
 
         return self._model.encode(texts, normalize_embeddings=True)
 
+    @property
+    def model(self):
+        return self._model
+
+
 # ─── Keyword fallback backend ──────────────────────────────────────────────────
 
 class KeywordClassifier:
@@ -317,6 +322,8 @@ def classify_signal(content: str) -> dict[str, Any]:
     topic, confidence = clf.classify(content)
     urgency = _detect_urgency(content)
 
+    signal_emb = clf.encode(content) if using_semantic_backend() else None
+
     # Check if low-urgency signals were explicitly present
     has_low_urgency_signal = any(
         signal in content.lower()
@@ -348,6 +355,7 @@ def classify_signal(content: str) -> dict[str, Any]:
         "signal_type": signal_type,
         "confidence": confidence,
         "backend": "semantic" if using_semantic_backend() else "keyword",
+        "signal_emb": signal_emb
     }
 
 
@@ -356,6 +364,7 @@ def _semantic_route(
         content: str,
         members: list[dict[str, Any]],
         sender_id: str,
+        signal_emb = None
 ) -> list[str]:
 
     """
@@ -375,27 +384,27 @@ def _semantic_route(
     SIMILARITY_THRESHOLD = 0.25
     MIN_RECIPIENTS = 1
 
-    signal_emb = clf.encode(content)
-    scored: list[tuple[str, float]] = []
+    if signal_emb is None:
+        signal_emb = clf.encode(content)
 
-    for member in members:
-        if member["id"] == sender_id:
-            continue
+    eligible = [m for m in members if m["id"] != sender_id]
+    if not eligible:
+        return []
 
+    profiles = []
+    for member in eligible:
         skills = member.get("skills", [])
+        if skills:
+            profiles.append(f"This person works on {', '.join(skills)} and handles related tasks.")
+        else:
+            profiles.append("general team member")
 
-        if not skills:
-            # no skill info -> give a neutral low score
-            scored.append((member["id"], 0.1))
-            continue
 
-        # Build a natural language profile sentence from member's skills
-        profile = f"This person works on {', '.join(skills)} and handles related tasks."
-        profile_emb = clf.encode(profile)
-        sim = float(np.dot(signal_emb, profile_emb))
-        scored.append((member["id"], sim))
+    # Build a natural language profile sentence from member's skills
+    profile_emb = clf.model.encode(profiles, normalize_embeddings=True) # single batch cell
+    sims = profile_emb @ signal_emb # vectorized dot product
 
-    scored.sort(key=lambda x: x[1], reverse=True)
+    scored = sorted(zip([m["id"] for m in eligible], sims, strict=False), key=lambda x: x[1], reverse=True)
 
     routed = [uid for uid, sim in scored if sim >= SIMILARITY_THRESHOLD]
 
@@ -452,6 +461,7 @@ def route_signal(
     members: list[dict[str, Any]],
     sender_id: str,
     content: str,
+    signal_emb = None
 ) -> list[str]:
     """
 
@@ -473,7 +483,7 @@ def route_signal(
     clf = get_classifier()
 
     if using_semantic_backend():
-        return _semantic_route(clf, content, members, sender_id)
+        return _semantic_route(clf, content, members, sender_id, signal_emb=signal_emb)
 
     else:
         return _keyword_route(topic, members, sender_id, urgency)
