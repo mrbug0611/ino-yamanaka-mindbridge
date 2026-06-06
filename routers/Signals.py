@@ -1,17 +1,21 @@
 """Signals API router - the core thought capture and routing engine"""
+
+# New Signals after refactoring
+
+from __future__ import annotations
+
 import json
-from typing import List
 
 from fastapi import APIRouter, HTTPException
 
 from database import get_db, release_db
-from models import SignalResponse, SignalCreate, gen_id, ReactionAdd
-from services.Nlp import classify_signal, route_signal
+from models import ReactionAdd, SignalCreate, SignalResponse, gen_id
 from services.ConnectionManager import manager
+from services.Nlp import classify_signal, route_signal
+
 router = APIRouter()
 
-
-def _row_to_signal(row, reactions: dict = None) -> SignalResponse:
+def _row_to_signal(row, reactions: dict | None = None) -> SignalResponse:
     routed_to = row["routed_to"]
 
     if isinstance(routed_to, str):
@@ -153,7 +157,7 @@ async def create_signal(signal: SignalCreate):
         await release_db(conn)
 
 
-@router.get("/session/{session_id}", response_model=List[SignalResponse])
+@router.get("/session/{session_id}", response_model=list[SignalResponse])
 async def get_session_signals(session_id: str, limit: int = 100):
     conn = await get_db()
 
@@ -190,7 +194,7 @@ async def add_reaction(signal_id: str, reaction: ReactionAdd):
             """
             INSERT INTO signal_reactions (signal_id, user_id, reaction)
             VALUES ($1, $2, $3)
-            ON CONFLICT (signal_id, user_id) DO UPDATE SET reaction = EXCLUDED.reaction 
+            ON CONFLICT (signal_id, user_id) DO UPDATE SET reaction = EXCLUDED.reaction
             """,
             signal_id, reaction.user_id, reaction.reaction,
         )

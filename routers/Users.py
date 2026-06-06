@@ -4,7 +4,6 @@ Users API Router
 
 """
 import json
-from typing import List
 
 from fastapi import APIRouter, HTTPException
 
@@ -51,8 +50,8 @@ async def create_user(user: UserCreate):
 
         except Exception as e:
             if "unique" in str(e).lower():
-                raise HTTPException(status_code=409, detail="Username already taken")
-            raise HTTPException(status_code=500, detail=str(e))
+                raise HTTPException(status_code=409, detail="Username already taken") from e
+            raise HTTPException(status_code=500, detail=str(e)) from e
         return _row_to_user(row)
     finally:
         await release_db(conn)
@@ -70,7 +69,7 @@ async def get_user(user_id: str):
     finally:
         await release_db(conn)
 
-@router.get("/", response_model=List[UserResponse])
+@router.get("/", response_model=list[UserResponse])
 async def list_users():
     conn = await get_db()
 

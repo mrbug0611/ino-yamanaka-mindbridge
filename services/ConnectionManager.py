@@ -8,7 +8,7 @@ Handles real-time mind-link sessions with pub/sub routing
 import asyncio
 import json
 import logging
-from typing import Dict, Any, Optional
+from typing import Any
 
 from fastapi import WebSocket
 from starlette.websockets import WebSocketDisconnect
@@ -18,10 +18,10 @@ logger = logging.getLogger(__name__)
 class ConnectionManager:
     def __init__(self):
         # session id -> {user id -> web socket}
-        self._sessions: Dict[str, Dict[str, WebSocket]] = {}
+        self._sessions: dict[str, dict[str, WebSocket]] = {}
 
         # user id -> session id (reverse look up)
-        self._user_sessions: Dict[str, str] = {}
+        self._user_sessions: dict[str, str] = {}
         self._lock = asyncio.Lock() # thread locking
 
     async def connect(
@@ -51,8 +51,8 @@ class ConnectionManager:
     async def broadcast_to_session(
             self,
             session_id: str,
-            message: Dict[str, Any],
-            exclude_user: Optional[str] = None,
+            message: dict[str, Any],
+            exclude_user: str | None = None,
     ) -> None:
         """Send message to all members of a session."""
 
@@ -79,7 +79,7 @@ class ConnectionManager:
         self,
         session_id: str,
         user_id: str,
-        message: Dict[str, Any],
+        message: dict[str, Any],
     ) -> bool:
         """Send message to a specific user in a session."""
 
@@ -104,8 +104,8 @@ class ConnectionManager:
         self,
         session_id: str,
         routed_to: list[str],
-        message: Dict[str, Any],
-        sender_id: Optional[str] = None,
+        message: dict[str, Any],
+        sender_id: str | None = None,
     ) -> None:
         """
         Send to routed users; also send sender a 'sent' confirmation.

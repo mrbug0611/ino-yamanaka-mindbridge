@@ -6,7 +6,7 @@ Handles async signal processing, routing computation, and housekeeping
 """
 import asyncio
 import logging
-from typing import Coroutine
+from collections.abc import Coroutine
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +34,7 @@ class BackgroundTaskManager:
                     self._queue.task_done()
             except asyncio.TimeoutError:
                 continue
-            except asyncio.CancelledError: # Task was cancelled
+            except asyncio.CancelledError: # Task was canceled
                 break
 
     async def stop(self):

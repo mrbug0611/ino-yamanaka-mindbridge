@@ -11,15 +11,16 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from database import init_db, close_db
+from database import close_db, init_db
+from routers import Sessions, Signals, Users, Ws
 from services.Background import BackgroundTaskManager
+from services.Nlp import get_classifier
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 task_manager = BackgroundTaskManager()
 
-from routers import Users, Sessions, Signals, Ws
 
 
 @asynccontextmanager
@@ -27,6 +28,10 @@ async def lifespan(app: FastAPI):
     logger.info("MindBridge initializing neural pathways...")
     await init_db()
     await task_manager.start()
+    # Warm up NLP model before first request hits
+    logger.info("Warming up NLP classifier...")
+    get_classifier()
+    logger.info("NLP classifier ready")
     yield
     logger.info("MindBridge shutting down neural pathways...")
     await task_manager.stop()
@@ -40,7 +45,7 @@ app = FastAPI(
 )
 
 app.add_middleware(
-    CORSMiddleware,
+    CORSMiddleware, # type: ignore[arg-type]
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],

@@ -1,11 +1,10 @@
 """Sessions API Router"""
 import json
-from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 
 from database import get_db, release_db
-from models import SessionResponse, SessionCreate, gen_id
+from models import SessionCreate, SessionResponse, gen_id
 from services.Nlp import generate_session_summary
 
 router = APIRouter()
@@ -98,8 +97,8 @@ async def get_session(session_id: str):
     finally:
         await release_db(conn)
 
-@router.get("/", response_model=List[SessionResponse])
-async def list_sessions(status: Optional[str] = Query(None)): # function argument HTTP query parameter default set none
+@router.get("/", response_model=list[SessionResponse])
+async def list_sessions(status: str | None = Query(None)): # function argument HTTP query parameter default set none
     conn = await get_db()
 
     try:

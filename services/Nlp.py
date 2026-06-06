@@ -12,7 +12,7 @@ import logging
 import os
 import re
 from collections import Counter, defaultdict
-from typing import Dict, List, Tuple, Any
+from typing import Any
 
 import numpy as np
 
@@ -29,7 +29,7 @@ FORCE_BACKEND = os.environ.get("MINDBRIDGE_NLP_BACKEND", "auto")  # "auto" | "se
 # One representative sentence per topic used as semantic anchor  (fixed point of machine-readable meaning)
 # The model encodes these at startup; incoming signals are compared via
 # cosine similarity (how closely to vectors aligned in multidimensional space) to pick the closest topic
-TOPIC_EXEMPLARS: Dict[str, List[str]] = {
+TOPIC_EXEMPLARS: dict[str, list[str]] = {
     "bug": [
         "The application is crashing and throwing an error",
         "There is a bug in the code causing unexpected behavior",
@@ -73,7 +73,7 @@ TOPIC_EXEMPLARS: Dict[str, List[str]] = {
 }
 
 # flat keyword list kept for the fallback backend and urgency detection
-TOPIC_KEYWORDS: Dict[str, List[str]] = {
+TOPIC_KEYWORDS: dict[str, list[str]] = {
     "bug": [
         "bug", "error", "crash", "crashes", "broken", "fail", "fails", "failing",
         "exception", "traceback", "issue", "fix", "debug", "not working",
@@ -154,7 +154,7 @@ class SemanticClassifier:
         from sentence_transformers import SentenceTransformer
         logger.info(f"Loading sentence-transformer model: {model_name}")
         self._model = SentenceTransformer(model_name)
-        self.topic_embeddings: Dict[str, np.ndarray] = {} # ndarray is core datastructures of numpy N-dimensional array
+        self.topic_embeddings: dict[str, np.ndarray] = {} # ndarray is core datastructures of numpy N-dimensional array
         self.build_topic_embeddings()
         logger.info("Semantic NLP backend ready")
 
@@ -183,7 +183,7 @@ class SemanticClassifier:
         emb = self._model.encode([text], normalize_embeddings=True)
         return emb[0]
 
-    def classify(self, content:str) -> Tuple[str, float]:
+    def classify(self, content:str) -> tuple[str, float]:
         """
 
         Return (topic, confidence) using cosine similarity against topic
@@ -195,7 +195,7 @@ class SemanticClassifier:
 
         signal_emb = self.encode(content)
 
-        scores: Dict[str, float] = {}
+        scores: dict[str, float] = {}
 
         for topic, topic_emb in self.topic_embeddings.items():
             # Both vectors are already normalized -> dot product = cosine sim
@@ -211,7 +211,7 @@ class SemanticClassifier:
 
         return best_topic, round(float(confidence), 3)
 
-    def encode_batch(self, texts:List[str]):
+    def encode_batch(self, texts:list[str]):
         """ Batch encode for summarization"""
 
         return self._model.encode(texts, normalize_embeddings=True)
@@ -224,10 +224,10 @@ class KeywordClassifier:
     def encode(self) -> None:
         return None # no embeddings in keyword mode
 
-    def classify(self, content: str) -> Tuple[str, float]:
+    def classify(self, content: str) -> tuple[str, float]:
         full_lower = content.lower()
         tokens = re.findall(r'\b\w+\b', full_lower) # extract all individual words
-        scores: Dict[str, float] = {}
+        scores: dict[str, float] = {}
 
         for topic, patterns in TOPIC_KEYWORDS.items():
             score = 0.0
@@ -253,7 +253,7 @@ class KeywordClassifier:
     def encode_batch(self) -> None:
         return None
 
-# ─── Module-level classifier (initialised once) ────────────────────────────────
+# ─── Module-level classifier (initialized once) ────────────────────────────────
 
 _classifier: SemanticClassifier | KeywordClassifier | None = None
 
@@ -302,7 +302,7 @@ def _detect_urgency(full_text: str) -> str:
     return "normal"
 
 # ─── Public API ────────────────────────────────────────────────────────────────
-def classify_signal(content: str) -> Dict[str, Any]:
+def classify_signal(content: str) -> dict[str, Any]:
     """
 
     Classify a signal's topic, urgency, type
@@ -354,9 +354,9 @@ def classify_signal(content: str) -> Dict[str, Any]:
 def _semantic_route(
         clf: SemanticClassifier,
         content: str,
-        members: List[Dict[str, Any]],
+        members: list[dict[str, Any]],
         sender_id: str,
-) -> List[str]:
+) -> list[str]:
 
     """
 
@@ -376,7 +376,7 @@ def _semantic_route(
     MIN_RECIPIENTS = 1
 
     signal_emb = clf.encode(content)
-    scored: List[Tuple[str, float]] = []
+    scored: list[tuple[str, float]] = []
 
     for member in members:
         if member["id"] == sender_id:
@@ -413,10 +413,10 @@ def _semantic_route(
 
 def _keyword_route(
     topic: str,
-    members: List[Dict[str, Any]],
+    members: list[dict[str, Any]],
     sender_id: str,
     urgency: str,
-) -> List[str]:
+) -> list[str]:
 
     """
 
@@ -428,7 +428,7 @@ def _keyword_route(
     :param urgency: urgency
     :return: routed members
     """
-    routed: List[str] = []
+    routed: list[str] = []
     for member in members:
         if member["id"] == sender_id:
             continue
@@ -449,10 +449,10 @@ def _keyword_route(
 def route_signal(
     topic: str,
     urgency: str,
-    members: List[Dict[str, Any]],
+    members: list[dict[str, Any]],
     sender_id: str,
     content: str,
-) -> List[str]:
+) -> list[str]:
     """
 
     Semantic Routing: if the semantic backend is available, compute embedding similarity
@@ -478,24 +478,24 @@ def route_signal(
     else:
         return _keyword_route(topic, members, sender_id, urgency)
 
-# ─── Summarisation ─────────────────────────────────────────────────────────────
+# ─── Summarization ─────────────────────────────────────────────────────────────
 
-def semantic_key_sentences(texts, n) -> List[str]:
+def semantic_key_sentences(texts, n) -> list[str]:
 
     clf = get_classifier()
     embeddings = clf.encode_batch(texts) # (N, 384)
     centroid = embeddings.mean(axis=0) # (384, )
     centroid /= (np.linalg.norm(centroid))
 
-    sims = embeddings @ centroid                   # (N,) dot products
-    ranked = sorted(zip(texts, sims), key=lambda x: x[1], reverse=True) # zip() create and return new obj
+    sims = embeddings @ centroid                   # (N) dot products
+    ranked = sorted(zip(texts, sims, strict=False), key=lambda x: x[1], reverse=True) # zip() create and return new obj
 
     return [t for t, _ in ranked[:n]]
 
 
 
 
-def tfidf_key_sentences(texts: List[str], n: int) -> List[str]:
+def tfidf_key_sentences(texts: list[str], n: int) -> list[str]:
     all_tokens = []
     for t in texts:
         all_tokens.extend(re.findall(r'\b\w+\b', t.lower()))
@@ -513,7 +513,7 @@ VERB_RE = re.compile(
     r'^(?:-\s+|\*\s+)?(implement|create|fix|update|review|schedule|discuss|test|deploy|check|add|remove|refactor)',
     re.IGNORECASE,
 )
-def extract_key_sentences(texts: List[str], n: int = 5) -> List[str]:
+def extract_key_sentences(texts: list[str], n: int = 5) -> list[str]:
     """
 
     Semantic key-sentence extraction when the semantic backend is active:
@@ -538,7 +538,7 @@ def extract_key_sentences(texts: List[str], n: int = 5) -> List[str]:
         return tfidf_key_sentences(texts, n)
 
 
-def generate_session_summary(signals: List[Dict[str, Any]]) -> Dict[str, Any]:
+def generate_session_summary(signals: list[dict[str, Any]]) -> dict[str, Any]:
     if not signals:
         return {
             "key_points": [], "unresolved_questions": [],
@@ -546,10 +546,10 @@ def generate_session_summary(signals: List[Dict[str, Any]]) -> Dict[str, Any]:
         }
 
     # Storage buckets for our single-pass loop
-    questions: List[Dict[str, Any]] = []
-    decisions_and_alerts: List[Dict[str, Any]] = []
-    non_q_contents: List[str] = []
-    next_steps: List[str] = []
+    questions: list[dict[str, Any]] = []
+    decisions_and_alerts: list[dict[str, Any]] = []
+    non_q_contents: list[str] = []
+    next_steps: list[str] = []
 
     # Topic tracking
     topic_counter: Counter = Counter() # for counting objects that are hashable

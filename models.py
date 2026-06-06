@@ -4,7 +4,7 @@ Pydantic models for MindBridge API
 
 """
 import uuid
-from typing import List, Optional, Dict, Any
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -17,7 +17,7 @@ def gen_id() -> str:
 class UserCreate(BaseModel): # core data block for data validation and parsing in python
     username: str = Field(..., min_length=2, max_length=32)
     display_name: str = Field(..., min_length=1, max_length=64)
-    skills: List[str] = Field(default_factory=list)
+    skills: list[str] = Field(default_factory=list)
     avatar_color: str = "#7C3AED"
 
 
@@ -25,7 +25,7 @@ class UserResponse(BaseModel):
     id: str
     username: str
     display_name: str
-    skills: List[str]
+    skills: list[str]
     avatar_color: str
     created_at: str
     last_active: str
@@ -35,32 +35,32 @@ class UserResponse(BaseModel):
 
 class SessionCreate(BaseModel):
     title: str = Field(..., min_length=1, max_length=128)
-    description: Optional[str] = None # specify data types without enforcing them at runtime can be string or none
+    description: str | None = None # specify data types without enforcing them at runtime can be string or none
     host_id: str
-    topic: Optional[str] = None
+    topic: str | None = None
 
 
 class SessionResponse(BaseModel):
     id: str
     title: str
-    description: Optional[str]
+    description: str | None
     host_id: str
     status: str
-    topic: Optional[str]
+    topic: str | None
     urgency_level: str
     created_at: str
-    ended_at: Optional[str]
-    summary: Optional[Dict[str, Any]]
+    ended_at: str | None
+    summary: dict[str, Any] | None
     member_count: int = 0
-    members: List[Dict[str, Any]] = Field(default_factory=list)
+    members: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class SessionSummary(BaseModel):
-    key_points: List[str]
-    unresolved_questions: List[str]
-    action_items: List[Dict[str, str]]
-    next_steps: List[str]
-    topic_clusters: List[Dict[str, Any]]
+    key_points: list[str]
+    unresolved_questions: list[str]
+    action_items: list[dict[str, str]]
+    next_steps: list[str]
+    topic_clusters: list[dict[str, Any]]
 
 
 # ─── Signal Models ─────────────────────────────────────────────────────────────
@@ -70,8 +70,7 @@ class SignalCreate(BaseModel):
     sender_id: str
     content: str = Field(..., min_length=1, max_length=4096)
     signal_type: str = "thought"
-    parent_id: Optional[str] = None
-
+    parent_id: str | None = None
 
 class SignalResponse(BaseModel):
     id: str
@@ -81,11 +80,11 @@ class SignalResponse(BaseModel):
     sender_color: str
     content: str
     signal_type: str
-    topic: Optional[str]
+    topic: str | None
     urgency: str
-    routed_to: List[str]
-    reactions: Dict[str, int]
-    parent_id: Optional[str]
+    routed_to: list[str]
+    reactions: dict[str, int]
+    parent_id: str | None
     created_at: str
 
 
@@ -98,15 +97,15 @@ class ReactionAdd(BaseModel):
 
 class WSMessage(BaseModel):
     type: str
-    payload: Dict[str, Any]
-    sender_id: Optional[str] = None
-    session_id: Optional[str] = None
+    payload: dict[str, Any]
+    sender_id: str | None = None
+    session_id: str | None = None
 
 
 class WSSignalBroadcast(BaseModel):
     type: str = "signal"
-    signal: Dict[str, Any]
-    routing: List[str]
+    signal: dict[str, Any]
+    routing: list[str]
     urgency: str
 
 
@@ -116,7 +115,7 @@ class ClassificationResult(BaseModel):
     topic: str
     urgency: str
     signal_type: str
-    routed_to: List[str]
+    routed_to: list[str]
     confidence: float
 
 
@@ -124,4 +123,4 @@ class RoutingRequest(BaseModel):
     content: str
     session_id: str
     sender_id: str
-    available_users: List[Dict[str, Any]]
+    available_users: list[dict[str, Any]]

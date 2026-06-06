@@ -9,8 +9,8 @@ import logging
 import os
 from typing import Any
 
+import asyncpg  # postgresql driver for python
 from dotenv import load_dotenv
-import asyncpg # postgresql driver for python
 
 load_dotenv()
 
@@ -58,7 +58,7 @@ def _decode_json(value: str) -> Any:
 
 async def init_db() -> None:
     global _pool
-    logger.info(f"Connecting to PostgreSQL...")
+    logger.info("Connecting to PostgreSQL...")
 
     _pool = await asyncpg.create_pool(
         DATABASE_URL,
