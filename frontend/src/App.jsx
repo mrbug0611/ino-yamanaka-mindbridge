@@ -2,9 +2,11 @@
 // All logic lives in views/ and /hooks; This file just switches between them 
 
 import {useState} from "react";
+import { LoginView }   from "./views/LoginView";
 
 export default function App() {
 
+  const [view, setView] = useState("login"); // "login" or "session"
   const [user, setUser] = useState(null);
   const [activeSession, setActiveSession] = useState(null);
   const [sessionSignals, setSessionSignals] = useState([]);
@@ -22,6 +24,13 @@ export default function App() {
     setActiveSession(null);
     setSessionSignals([]);
   }
+
+  if (view === "login") {
+    return <LoginView onLogin={handleLogin} />;
+  }    
+  
+
+
 
   return (
     <div>

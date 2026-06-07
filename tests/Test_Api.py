@@ -4,7 +4,7 @@ Uses an in-process aiosqlite backend so no Postgres is needed for CI.
 Run with: pytest tests/test_api.py -v --asyncio-mode=auto
 """
 
-import sys, os, json, uuid
+import sys, os, json, uuid, asyncio
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import pytest
@@ -206,6 +206,33 @@ class TestUsers:
         r = await client.get("/api/users/")
         assert r.status_code == 200
         assert isinstance(r.json(), list)
+
+    async def test_get_user_by_username_found(self, client):
+        name = f"find_{uuid.uuid4().hex[:6]}"
+        created = (await client.post("/api/users/", json={
+            "username": name, "display_name": "Find Me", "skills": [],
+        })).json()
+        r = await client.get(f"/api/users/?username={name}")
+        assert r.status_code == 200
+        results = r.json()
+        assert len(results) == 1
+        assert results[0]["id"] == created["id"]
+        assert results[0]["username"] == name
+
+    async def test_get_user_by_username_not_found(self, client):
+        r = await client.get("/api/users/?username=definitely_does_not_exist_xyz")
+        assert r.status_code == 200
+        assert r.json() == []
+
+    async def test_get_user_by_username_no_cross_match(self, client):
+        """Filtering by username should not return other users."""
+        name_a = f"usera_{uuid.uuid4().hex[:6]}"
+        name_b = f"userb_{uuid.uuid4().hex[:6]}"
+        await client.post("/api/users/", json={"username": name_a, "display_name": "A", "skills": []})
+        await client.post("/api/users/", json={"username": name_b, "display_name": "B", "skills": []})
+        r = await client.get(f"/api/users/?username={name_a}")
+        results = r.json()
+        assert all(u["username"] == name_a for u in results)
 
 
 @pytest.mark.asyncio

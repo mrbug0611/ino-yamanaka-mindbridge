@@ -5,7 +5,7 @@ Users API Router
 """
 import json
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 
 from database import get_db, release_db
 from models import UserCreate, UserResponse, gen_id
@@ -56,6 +56,27 @@ async def create_user(user: UserCreate):
     finally:
         await release_db(conn)
 
+@router.get("/", response_model=list[UserResponse])
+async def list_users(username: str | None = Query(None) ):
+    conn = await get_db()
+
+    try:
+        if username:
+            rows = await conn.fetch(
+                "SELECT * FROM users WHERE username = $1 LIMIT 1",
+                username,
+            )
+
+        else:
+            rows = await conn.fetch(
+                "SELECT * FROM users ORDER BY last_active DESC LIMIT 100"
+            )
+
+        return [_row_to_user(r) for r in rows]
+
+    finally:
+        await release_db(conn)
+
 @router.get("/{user_id}", response_model=UserResponse)
 async def get_user(user_id: str):
     conn = await get_db()
@@ -69,16 +90,4 @@ async def get_user(user_id: str):
     finally:
         await release_db(conn)
 
-@router.get("/", response_model=list[UserResponse])
-async def list_users():
-    conn = await get_db()
 
-    try:
-        rows = await conn.fetch(
-            "SELECT * FROM users ORDER BY last_active DESC LIMIT 100"
-        )
-
-        return [_row_to_user(r) for r in rows]
-
-    finally:
-        await release_db(conn)

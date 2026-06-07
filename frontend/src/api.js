@@ -1,6 +1,7 @@
 // api.js - all backend communication in one place 
 
-const API_BASE = process.env.REACT_APP_API_BASE || '/api';
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+
 const json = (res) => {
     if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
@@ -40,6 +41,14 @@ export const getUser = (userId) =>
  
 export const listUsers = () =>
   fetch(`${API_BASE}/users/`).then(json);
+
+// Returns the matching user or null if username not found
+export async function getUserByUsername(username) {
+  const results = await fetch(
+    `${API_BASE}/users/?username=${encodeURIComponent(username)}`
+  ).then(json);
+  return results.length > 0 ? results[0] : null;
+}
  
 // ── Sessions ──────────────────────────────────────────────────────────────────
  
