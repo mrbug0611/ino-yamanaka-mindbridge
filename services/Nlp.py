@@ -18,7 +18,8 @@ import numpy as np
 
 logger = logging.getLogger(__name__)
 
-# ─── Configuration ─────────────────────────────────────────────────────────────
+# Disable implicit Hugging Face token to prevent unintended authenticated requests
+os.environ["HF_HUB_DISABLE_IMPLICIT_TOKEN"] = "1"# ─── Configuration ─────────────────────────────────────────────────────────────
 
 MODEL_NAME = os.environ.get("MINDBRIDGE_EMBED_MODEL","all-MiniLM-L6-v2")
 FORCE_BACKEND = os.environ.get("MINDBRIDGE_NLP_BACKEND", "auto")  # "auto" | "semantic" | "keyword"
