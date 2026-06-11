@@ -18,12 +18,24 @@ router = APIRouter()
 def _row_to_signal(row, reactions: dict | None = None) -> SignalResponse:
     routed_to = row["routed_to"]
 
-    if isinstance(routed_to, str):
-        routed_to = json.loads(routed_to)
+    while isinstance(routed_to, str):
+        try:
+            parsed = json.loads(routed_to)
+            if parsed == routed_to:
+                break
+            routed_to = parsed
+        except json.JSONDecodeError:
+            break
 
     stored_reactions = row["reactions"] or {}
-    if isinstance(stored_reactions, str):
-        stored_reactions = json.loads(stored_reactions)
+    while isinstance(stored_reactions, str):
+        try:
+            parsed = json.loads(stored_reactions)
+            if parsed == stored_reactions:
+                break
+            stored_reactions = parsed
+        except json.JSONDecodeError:
+            break
     if reactions is not None:
         stored_reactions = reactions
 

@@ -81,14 +81,15 @@ try {
         avatar_color: form.avatar_color,
       });
       // Only update state if component is still mounted
-      if (!isMountedRef.current) return;
       onLogin(user);
     } catch (err) {
 
       if (!isMountedRef.current) return;
       setError(err.message);
     } finally {
-      setLoading(false);
+        if (isMountedRef.current) {
+          setLoading(false);
+        }
     }
   }
 

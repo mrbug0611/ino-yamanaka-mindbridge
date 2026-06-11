@@ -16,8 +16,18 @@ router = APIRouter()
 def _row_to_user(row) -> UserResponse:
     skills = row["skills"]
 
-    if isinstance(skills, str):
-        skills = json.loads(skills)
+    while isinstance(skills, str):
+        try:
+            parsed = json.loads(skills)
+
+            if parsed == skills:
+                break
+            skills = parsed
+        except json.JSONDecodeError:
+            break
+
+    if not isinstance(skills, list):
+        skills  # noqa: B018
 
     return UserResponse(
         id=row["id"],
