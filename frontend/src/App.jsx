@@ -4,6 +4,7 @@
 import {useState} from "react";
 import { LoginView }   from "./views/LoginView";
 import { LobbyView }   from "./views/LobbyView";
+import { SessionView } from "./views/SessionView";
 
 export default function App() {
 
@@ -13,13 +14,20 @@ export default function App() {
   const [sessionSignals, setSessionSignals] = useState([]);
 
   function handleLogin(user) {
-    setUser(user);
+    // Normalize skills — SQLite returns JSON strings, Postgres returns arrays
+    const normalized = {
+      ...user,
+      skills: typeof user.skills === "string"
+        ? JSON.parse(user.skills)
+        : (user.skills || []),
+    };
+    setUser(normalized);
     setView("lobby");
   }
-
   function handleJoinSession(session, signals) {
     setActiveSession(session);
     setSessionSignals(signals);
+    setView("session");
   }
 
   function handleLeaveSession() {
@@ -46,8 +54,11 @@ export default function App() {
 
 
   return (
-    <div>
-      <h1>Hello, React!</h1>
-    </div>
+    <SessionView
+      user={user}
+      session={activeSession}
+      initialSignals={sessionSignals}
+      onLeave={handleLeaveSession}
+    />
   );
 }

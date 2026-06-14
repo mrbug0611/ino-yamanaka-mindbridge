@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import json
+import logging
 
 from fastapi import APIRouter, HTTPException
 
@@ -14,6 +15,9 @@ from services.ConnectionManager import manager
 from services.Nlp import classify_signal, route_signal
 
 router = APIRouter()
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def _row_to_signal(row, reactions: dict | None = None) -> SignalResponse:
     routed_to = row["routed_to"]
@@ -159,6 +163,7 @@ async def create_signal(signal: SignalCreate):
         if classification["urgency"] == "critical":
             await manager.broadcast_to_session(signal.session_id, ws_message)
         else:
+            logger.info(f"Routing signal to: {routed_to}, urgency: {classification['urgency']}")
             await manager.broadcast_to_routed(
                 signal.session_id, routed_to, ws_message,
                 sender_id=signal.sender_id,
@@ -227,7 +232,7 @@ async def add_reaction(signal_id: str, reaction: ReactionAdd):
 
         await conn.execute(
             "UPDATE signals SET reactions = $1 WHERE id = $2",
-            reactions,  # This will be stored as JSONB
+            json.dumps(reactions),  # This will be stored as JSONB
             signal_id
         )
 

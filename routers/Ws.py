@@ -22,7 +22,7 @@ async def _handle_message(session_id, user_id, msg):
             session_id,
             {
                 "type": "typing",
-                "user_id": user_id,
+                "user_id": str(user_id),
                 "is_typing": msg.get("is_typing", True),
             },
             exclude_user=user_id,
