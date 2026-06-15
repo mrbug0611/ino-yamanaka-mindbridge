@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>services.Nlp API documentation</title>
+<meta name="description" content="NLP Service: Topic Classification, urgency detection, and smart routing
+Sentence transformers (all MiniLM-L6-V2) for semantic embedding …">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>services.Nlp</code></h1>
+</header>
+<section id="section-intro">
+<p>NLP Service: Topic Classification, urgency detection, and smart routing
+Sentence transformers (all MiniLM-L6-V2) for semantic embedding</p>
+<p>The module auto-detects which backend to use at import time
+Set MINDBRIDGE_NLP_BACKEND=keyword to force keyword mode regardless</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="services.Nlp.classify_signal"><code class="name flex">
+<span>def <span class="ident">classify_signal</span></span>(<span>content: str) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def classify_signal(content: str) -&gt; dict[str, Any]:
+    &#34;&#34;&#34;
+
+    Classify a signal&#39;s topic, urgency, type
+    Uses the semantic backend when sentence transformers available otherwise
+    Falls back to Keyword Scoring
+
+    :param content: Text to classify
+    :return: Dictionary of how content is classified
+    &#34;&#34;&#34;
+
+    clf = get_classifier()
+    topic, confidence = clf.classify(content)
+    urgency = _detect_urgency(content)
+
+    signal_emb = clf.encode(content) if using_semantic_backend() else None
+
+    # Check if low-urgency signals were explicitly present
+    has_low_urgency_signal = any(
+        signal in content.lower()
+        for signal in URGENCY_SIGNALS[&#34;low&#34;]
+    )
+
+    if topic == &#34;urgent&#34; and not has_low_urgency_signal:
+        urgency = &#34;critical&#34;
+        topic = &#34;bug&#34;
+
+    # Derive signal_type
+    signal_type = &#34;thought&#34;
+    if &#34;?&#34; in content and topic in (&#34;general&#34;, &#34;question&#34;):
+        signal_type = &#34;question&#34;
+    elif &#34;?&#34; in content and confidence &lt; 0.3:
+        signal_type = &#34;question&#34;
+    elif topic == &#34;question&#34;:
+        signal_type = &#34;question&#34;
+    elif topic == &#34;decision&#34;:
+        signal_type = &#34;decision&#34;
+    elif topic == &#34;planning&#34;:
+        signal_type = &#34;plan&#34;
+    elif urgency in (&#34;critical&#34;, &#34;high&#34;):
+        signal_type = &#34;alert&#34;
+
+    return {
+        &#34;topic&#34;: topic,
+        &#34;urgency&#34;: urgency,
+        &#34;signal_type&#34;: signal_type,
+        &#34;confidence&#34;: confidence,
+        &#34;backend&#34;: &#34;semantic&#34; if using_semantic_backend() else &#34;keyword&#34;,
+        &#34;signal_emb&#34;: signal_emb
+    }</code></pre>
+</details>
+<div class="desc"><p>Classify a signal's topic, urgency, type
+Uses the semantic backend when sentence transformers available otherwise
+Falls back to Keyword Scoring</p>
+<p>:param content: Text to classify
+:return: Dictionary of how content is classified</p></div>
+</dd>
+<dt id="services.Nlp.extract_key_sentences"><code class="name flex">
+<span>def <span class="ident">extract_key_sentences</span></span>(<span>texts: list[str], n: int = 5) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_key_sentences(texts: list[str], n: int = 5) -&gt; list[str]:
+    &#34;&#34;&#34;
+
+    Semantic key-sentence extraction when the semantic backend is active:
+    embed all sentences, cluster by centroid similarity, pick the most \
+    central one per cluster
+
+    Falls back to TF-IDF scoring when only the keyword backend is available.
+
+
+    :param texts: list of sentences
+    :param n: how many items to get back defaults to 5
+    :return: extracted key-sentences
+    &#34;&#34;&#34;
+
+    if not texts:
+        return []
+
+    if using_semantic_backend():
+        return semantic_key_sentences(texts, n)
+
+    else:
+        return tfidf_key_sentences(texts, n)</code></pre>
+</details>
+<div class="desc"><p>Semantic key-sentence extraction when the semantic backend is active:
+embed all sentences, cluster by centroid similarity, pick the most
+central one per cluster</p>
+<p>Falls back to TF-IDF scoring when only the keyword backend is available.</p>
+<p>:param texts: list of sentences
+:param n: how many items to get back defaults to 5
+:return: extracted key-sentences</p></div>
+</dd>
+<dt id="services.Nlp.generate_session_summary"><code class="name flex">
+<span>def <span class="ident">generate_session_summary</span></span>(<span>signals: list[dict[str, typing.Any]]) ‑> dict[str, typing.Any]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_session_summary(signals: list[dict[str, Any]]) -&gt; dict[str, Any]:
+    if not signals:
+        return {
+            &#34;key_points&#34;: [], &#34;unresolved_questions&#34;: [],
+            &#34;action_items&#34;: [], &#34;next_steps&#34;: [], &#34;topic_clusters&#34;: [],
+        }
+
+    # Storage buckets for our single-pass loop
+    questions: list[dict[str, Any]] = []
+    decisions_and_alerts: list[dict[str, Any]] = []
+    non_q_contents: list[str] = []
+    next_steps: list[str] = []
+
+    # Topic tracking
+    topic_counter: Counter = Counter() # for counting objects that are hashable
+    signals_by_topic = defaultdict(list) # automatically provides default value for any missing key you try to access
+
+    # Single pass over signals: O(N)
+    for s in signals:
+        content = s.get(&#34;content&#34;, &#34;&#34;)
+        signal_type = s.get(&#34;signal_type&#34;)
+        urgency = s.get(&#34;urgency&#34;)
+        topic = s.get(&#34;topic&#34;, &#34;general&#34;)  # Unified fallback to fix the bug
+
+        # 1. Classify questions vs non-questions
+        if &#34;?&#34; in content or signal_type == &#34;question&#34;:
+            questions.append(s)
+        else:
+            non_q_contents.append(content)
+
+        # 2. Classify action items (decisions or high urgency)
+        if signal_type == &#34;decision&#34; or urgency in (&#34;critical&#34;, &#34;high&#34;):
+            decisions_and_alerts.append(s)
+
+        # 3. Track topics safely
+        topic_counter[topic] += 1
+        signals_by_topic[topic].append(s[&#34;id&#34;])
+
+        # 4. Extract next steps (handles optional bullet points now too)
+        if len(next_steps) &lt; 4 and VERB_RE.match(content.strip()):
+            next_steps.append(content[:120])
+
+    # Build clusters via pre-grouped O(1) lookups
+    clusters = [
+        {&#34;topic&#34;: t, &#34;count&#34;: c, &#34;signals&#34;: signals_by_topic[t]}
+        for t, c in topic_counter.most_common()
+    ]
+
+    # Process final outputs using your text extractor function
+    key_points = extract_key_sentences(non_q_contents, n=5)
+    unresolved = [s[&#34;content&#34;] for s in questions]
+
+    action_items = [
+        {&#34;content&#34;: s[&#34;content&#34;][:120], &#34;urgency&#34;: s.get(&#34;urgency&#34;, &#34;normal&#34;), &#34;signal_id&#34;: s[&#34;id&#34;]}
+        for s in decisions_and_alerts
+    ][:10]  # Sliced here to prevent building unnecessary dictionaries
+
+    return {
+        &#34;key_points&#34;: key_points,
+        &#34;unresolved_questions&#34;: unresolved[:8],
+        &#34;action_items&#34;: action_items,
+        &#34;next_steps&#34;: next_steps,
+        &#34;topic_clusters&#34;: clusters,
+    }</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="services.Nlp.get_classifier"><code class="name flex">
+<span>def <span class="ident">get_classifier</span></span>(<span>) ‑> <a title="services.Nlp.SemanticClassifier" href="#services.Nlp.SemanticClassifier">SemanticClassifier</a> | <a title="services.Nlp.KeywordClassifier" href="#services.Nlp.KeywordClassifier">KeywordClassifier</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_classifier() -&gt; SemanticClassifier | KeywordClassifier:
+    global _classifier
+    if _classifier is not None:
+        return _classifier
+
+    backend = FORCE_BACKEND
+
+    if backend == &#34;semantic&#34;:
+        _classifier = SemanticClassifier(MODEL_NAME)
+
+    elif backend == &#34;keyword&#34;:
+        _classifier = KeywordClassifier()
+
+    else:
+        # try auto: semantic first then fall back to keyword
+        try:
+            _classifier = SemanticClassifier(MODEL_NAME)
+        except Exception as e:
+            logger.warning(f&#34;Semantic backend unavailable ({e}), using keyword fallback&#34;)
+            _classifier = KeywordClassifier()
+
+    return _classifier</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="services.Nlp.route_signal"><code class="name flex">
+<span>def <span class="ident">route_signal</span></span>(<span>topic: str,<br>urgency: str,<br>members: list[dict[str, typing.Any]],<br>sender_id: str,<br>content: str,<br>signal_emb=None) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def route_signal(
+    topic: str,
+    urgency: str,
+    members: list[dict[str, Any]],
+    sender_id: str,
+    content: str,
+    signal_emb = None
+) -&gt; list[str]:
+    &#34;&#34;&#34;
+
+    Semantic Routing: if the semantic backend is available, compute embedding similarity
+    between the signal and each member&#39;s skill profile.
+    Falls back to skill-topic mapping otherwise.
+
+    :param topic: topic of signal
+    :param urgency: urgency of signal
+    :param members: members of signal
+    :param sender_id: sender id of signal
+    :param content: content of signal
+    :return: semantic route or keyword route of signal
+    &#34;&#34;&#34;
+
+    if urgency == &#34;critical&#34;:
+        return [m[&#34;id&#34;] for m in members if m[&#34;id&#34;] != sender_id]
+
+    clf = get_classifier()
+
+    if using_semantic_backend():
+        return _semantic_route(clf, content, members, sender_id, signal_emb=signal_emb)
+
+    else:
+        return _keyword_route(topic, members, sender_id, urgency)</code></pre>
+</details>
+<div class="desc"><p>Semantic Routing: if the semantic backend is available, compute embedding similarity
+between the signal and each member's skill profile.
+Falls back to skill-topic mapping otherwise.</p>
+<p>:param topic: topic of signal
+:param urgency: urgency of signal
+:param members: members of signal
+:param sender_id: sender id of signal
+:param content: content of signal
+:return: semantic route or keyword route of signal</p></div>
+</dd>
+<dt id="services.Nlp.semantic_key_sentences"><code class="name flex">
+<span>def <span class="ident">semantic_key_sentences</span></span>(<span>texts, n) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def semantic_key_sentences(texts, n) -&gt; list[str]:
+
+    clf = get_classifier()
+    embeddings = clf.encode_batch(texts) # (N, 384)
+    centroid = embeddings.mean(axis=0) # (384, )
+    centroid /= (np.linalg.norm(centroid))
+
+    sims = embeddings @ centroid                   # (N) dot products
+    ranked = sorted(zip(texts, sims, strict=False), key=lambda x: x[1], reverse=True) # zip() create and return new obj
+
+    return [t for t, _ in ranked[:n]]</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="services.Nlp.tfidf_key_sentences"><code class="name flex">
+<span>def <span class="ident">tfidf_key_sentences</span></span>(<span>texts: list[str], n: int) ‑> list[str]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tfidf_key_sentences(texts: list[str], n: int) -&gt; list[str]:
+    all_tokens = []
+    for t in texts:
+        all_tokens.extend(re.findall(r&#39;\b\w+\b&#39;, t.lower()))
+    tf = Counter(all_tokens)
+    total = len(all_tokens) or 1
+
+    def score(text: str) -&gt; float:
+        tokens = re.findall(r&#39;\b\w+\b&#39;, text.lower())
+        return sum(tf[tok] / total for tok in tokens if len(tok) &gt; 3)
+
+    scored = sorted(texts, key=score, reverse=True)
+    return scored[:n]</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="services.Nlp.using_semantic_backend"><code class="name flex">
+<span>def <span class="ident">using_semantic_backend</span></span>(<span>) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def using_semantic_backend() -&gt; bool:
+    return isinstance(get_classifier(), SemanticClassifier)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="services.Nlp.KeywordClassifier"><code class="flex name class">
+<span>class <span class="ident">KeywordClassifier</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class KeywordClassifier:
+    &#34;&#34;&#34;Original key-word frequency scorer - 0 extra dependencies &#34;&#34;&#34;
+
+    def encode(self) -&gt; None:
+        return None # no embeddings in keyword mode
+
+    def classify(self, content: str) -&gt; tuple[str, float]:
+        full_lower = content.lower()
+        tokens = re.findall(r&#39;\b\w+\b&#39;, full_lower) # extract all individual words
+        scores: dict[str, float] = {}
+
+        for topic, patterns in TOPIC_KEYWORDS.items():
+            score = 0.0
+
+            for pattern in patterns:
+                if &#34; &#34; in pattern:
+                    if pattern in full_lower:
+                        score += 2.0
+                else:
+                    score += tokens.count(pattern) * 1.0
+
+                scores[topic] = score
+
+        if not any(v &gt; 0 for v in scores.values()):
+            return &#34;general&#34;, 0.0
+
+        best = max(scores, key=lambda k: scores[k])
+        total = sum(scores.values()) or 1
+        confidence = scores[best] / total
+
+        return best, round(float(confidence), 3)
+
+    def encode_batch(self) -&gt; None:
+        return None</code></pre>
+</details>
+<div class="desc"><p>Original key-word frequency scorer - 0 extra dependencies</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="services.Nlp.KeywordClassifier.classify"><code class="name flex">
+<span>def <span class="ident">classify</span></span>(<span>self, content: str) ‑> tuple[str, float]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def classify(self, content: str) -&gt; tuple[str, float]:
+    full_lower = content.lower()
+    tokens = re.findall(r&#39;\b\w+\b&#39;, full_lower) # extract all individual words
+    scores: dict[str, float] = {}
+
+    for topic, patterns in TOPIC_KEYWORDS.items():
+        score = 0.0
+
+        for pattern in patterns:
+            if &#34; &#34; in pattern:
+                if pattern in full_lower:
+                    score += 2.0
+            else:
+                score += tokens.count(pattern) * 1.0
+
+            scores[topic] = score
+
+    if not any(v &gt; 0 for v in scores.values()):
+        return &#34;general&#34;, 0.0
+
+    best = max(scores, key=lambda k: scores[k])
+    total = sum(scores.values()) or 1
+    confidence = scores[best] / total
+
+    return best, round(float(confidence), 3)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="services.Nlp.KeywordClassifier.encode"><code class="name flex">
+<span>def <span class="ident">encode</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def encode(self) -&gt; None:
+    return None # no embeddings in keyword mode</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="services.Nlp.KeywordClassifier.encode_batch"><code class="name flex">
+<span>def <span class="ident">encode_batch</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def encode_batch(self) -&gt; None:
+    return None</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="services.Nlp.SemanticClassifier"><code class="flex name class">
+<span>class <span class="ident">SemanticClassifier</span></span>
+<span>(</span><span>model_name: str)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SemanticClassifier:
+    &#34;&#34;&#34;
+
+    Uses sentence transformers to encode signals and compare them against
+    per-topic exemplar embeddings via cosine similarity
+
+    &#34;&#34;&#34;
+
+    def __init__(self, model_name:str):
+        from sentence_transformers import SentenceTransformer
+        logger.info(f&#34;Loading sentence-transformer model: {model_name}&#34;)
+        self._model = SentenceTransformer(model_name)
+        self.topic_embeddings: dict[str, np.ndarray] = {} # ndarray is core datastructures of numpy N-dimensional array
+        self.build_topic_embeddings()
+        logger.info(&#34;Semantic NLP backend ready&#34;)
+
+    def build_topic_embeddings(self) -&gt; None:
+
+        &#34;&#34;&#34;
+        Encode all exemplar sentences per topic, then average them into a
+        single representative embedding. Done at Start up.
+        :return: None
+        &#34;&#34;&#34;
+
+        for topic, exemplars in TOPIC_KEYWORDS.items():
+            embeddings = self._model.encode(exemplars, normalize_embeddings=True) # compute embeddings for given input
+
+            # Mean pool across exemplars -&gt; single 384-dim vector
+            mean_enb = embeddings.mean(axis=0) # find average of vectors across all exemplars
+            # condense examples texts of this single topic into a representative 384 dimensional vector
+
+            # Renormalize so cosine sim is just a dot product
+            mean_enb /= (np.linalg.norm(mean_enb) + 1e-9) #matrix/vector norm in linear algebra
+            self.topic_embeddings[topic] = mean_enb
+
+    def encode(self, text: str) -&gt; np.ndarray:
+        &#34;&#34;&#34; Return a normalized embedding for a given text. &#34;&#34;&#34;
+
+        emb = self._model.encode([text], normalize_embeddings=True)
+        return emb[0]
+
+    def classify(self, content:str) -&gt; tuple[str, float]:
+        &#34;&#34;&#34;
+
+        Return (topic, confidence) using cosine similarity against topic
+        exemplar embeddings. Confidence = similarity of the best topic
+
+        :param content: text to classify
+        :return: topic, confidence
+        &#34;&#34;&#34;
+
+        signal_emb = self.encode(content)
+
+        scores: dict[str, float] = {}
+
+        for topic, topic_emb in self.topic_embeddings.items():
+            # Both vectors are already normalized -&gt; dot product = cosine sim
+            scores[topic] = float(np.dot(signal_emb, topic_emb))
+
+        best_topic = max(scores, key=lambda k: scores[k])
+
+        #Soft-max normalize for a more calibrated confidence
+        # convert vectors of real arbitrary numbers into probability distributions
+        exp_scores = {t: np.exp(s * 5) for t, s in scores.items()} # temperature = 5
+        total = sum(exp_scores.values()) or 1.0 # default to 1 if sum is 0
+        confidence = exp_scores[best_topic] / total
+
+        return best_topic, round(float(confidence), 3)
+
+    def encode_batch(self, texts:list[str]):
+        &#34;&#34;&#34; Batch encode for summarization&#34;&#34;&#34;
+
+        return self._model.encode(texts, normalize_embeddings=True)
+
+    @property
+    def model(self):
+        return self._model</code></pre>
+</details>
+<div class="desc"><p>Uses sentence transformers to encode signals and compare them against
+per-topic exemplar embeddings via cosine similarity</p></div>
+<h3>Instance variables</h3>
+<dl>
+<dt id="services.Nlp.SemanticClassifier.model"><code class="name">prop <span class="ident">model</span></code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def model(self):
+    return self._model</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="services.Nlp.SemanticClassifier.build_topic_embeddings"><code class="name flex">
+<span>def <span class="ident">build_topic_embeddings</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_topic_embeddings(self) -&gt; None:
+
+    &#34;&#34;&#34;
+    Encode all exemplar sentences per topic, then average them into a
+    single representative embedding. Done at Start up.
+    :return: None
+    &#34;&#34;&#34;
+
+    for topic, exemplars in TOPIC_KEYWORDS.items():
+        embeddings = self._model.encode(exemplars, normalize_embeddings=True) # compute embeddings for given input
+
+        # Mean pool across exemplars -&gt; single 384-dim vector
+        mean_enb = embeddings.mean(axis=0) # find average of vectors across all exemplars
+        # condense examples texts of this single topic into a representative 384 dimensional vector
+
+        # Renormalize so cosine sim is just a dot product
+        mean_enb /= (np.linalg.norm(mean_enb) + 1e-9) #matrix/vector norm in linear algebra
+        self.topic_embeddings[topic] = mean_enb</code></pre>
+</details>
+<div class="desc"><p>Encode all exemplar sentences per topic, then average them into a
+single representative embedding. Done at Start up.
+:return: None</p></div>
+</dd>
+<dt id="services.Nlp.SemanticClassifier.classify"><code class="name flex">
+<span>def <span class="ident">classify</span></span>(<span>self, content: str) ‑> tuple[str, float]</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def classify(self, content:str) -&gt; tuple[str, float]:
+    &#34;&#34;&#34;
+
+    Return (topic, confidence) using cosine similarity against topic
+    exemplar embeddings. Confidence = similarity of the best topic
+
+    :param content: text to classify
+    :return: topic, confidence
+    &#34;&#34;&#34;
+
+    signal_emb = self.encode(content)
+
+    scores: dict[str, float] = {}
+
+    for topic, topic_emb in self.topic_embeddings.items():
+        # Both vectors are already normalized -&gt; dot product = cosine sim
+        scores[topic] = float(np.dot(signal_emb, topic_emb))
+
+    best_topic = max(scores, key=lambda k: scores[k])
+
+    #Soft-max normalize for a more calibrated confidence
+    # convert vectors of real arbitrary numbers into probability distributions
+    exp_scores = {t: np.exp(s * 5) for t, s in scores.items()} # temperature = 5
+    total = sum(exp_scores.values()) or 1.0 # default to 1 if sum is 0
+    confidence = exp_scores[best_topic] / total
+
+    return best_topic, round(float(confidence), 3)</code></pre>
+</details>
+<div class="desc"><p>Return (topic, confidence) using cosine similarity against topic
+exemplar embeddings. Confidence = similarity of the best topic</p>
+<p>:param content: text to classify
+:return: topic, confidence</p></div>
+</dd>
+<dt id="services.Nlp.SemanticClassifier.encode"><code class="name flex">
+<span>def <span class="ident">encode</span></span>(<span>self, text: str) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def encode(self, text: str) -&gt; np.ndarray:
+    &#34;&#34;&#34; Return a normalized embedding for a given text. &#34;&#34;&#34;
+
+    emb = self._model.encode([text], normalize_embeddings=True)
+    return emb[0]</code></pre>
+</details>
+<div class="desc"><p>Return a normalized embedding for a given text.</p></div>
+</dd>
+<dt id="services.Nlp.SemanticClassifier.encode_batch"><code class="name flex">
+<span>def <span class="ident">encode_batch</span></span>(<span>self, texts: list[str])</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def encode_batch(self, texts:list[str]):
+    &#34;&#34;&#34; Batch encode for summarization&#34;&#34;&#34;
+
+    return self._model.encode(texts, normalize_embeddings=True)</code></pre>
+</details>
+<div class="desc"><p>Batch encode for summarization</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="services" href="index.html">services</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="services.Nlp.classify_signal" href="#services.Nlp.classify_signal">classify_signal</a></code></li>
+<li><code><a title="services.Nlp.extract_key_sentences" href="#services.Nlp.extract_key_sentences">extract_key_sentences</a></code></li>
+<li><code><a title="services.Nlp.generate_session_summary" href="#services.Nlp.generate_session_summary">generate_session_summary</a></code></li>
+<li><code><a title="services.Nlp.get_classifier" href="#services.Nlp.get_classifier">get_classifier</a></code></li>
+<li><code><a title="services.Nlp.route_signal" href="#services.Nlp.route_signal">route_signal</a></code></li>
+<li><code><a title="services.Nlp.semantic_key_sentences" href="#services.Nlp.semantic_key_sentences">semantic_key_sentences</a></code></li>
+<li><code><a title="services.Nlp.tfidf_key_sentences" href="#services.Nlp.tfidf_key_sentences">tfidf_key_sentences</a></code></li>
+<li><code><a title="services.Nlp.using_semantic_backend" href="#services.Nlp.using_semantic_backend">using_semantic_backend</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="services.Nlp.KeywordClassifier" href="#services.Nlp.KeywordClassifier">KeywordClassifier</a></code></h4>
+<ul class="">
+<li><code><a title="services.Nlp.KeywordClassifier.classify" href="#services.Nlp.KeywordClassifier.classify">classify</a></code></li>
+<li><code><a title="services.Nlp.KeywordClassifier.encode" href="#services.Nlp.KeywordClassifier.encode">encode</a></code></li>
+<li><code><a title="services.Nlp.KeywordClassifier.encode_batch" href="#services.Nlp.KeywordClassifier.encode_batch">encode_batch</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="services.Nlp.SemanticClassifier" href="#services.Nlp.SemanticClassifier">SemanticClassifier</a></code></h4>
+<ul class="">
+<li><code><a title="services.Nlp.SemanticClassifier.build_topic_embeddings" href="#services.Nlp.SemanticClassifier.build_topic_embeddings">build_topic_embeddings</a></code></li>
+<li><code><a title="services.Nlp.SemanticClassifier.classify" href="#services.Nlp.SemanticClassifier.classify">classify</a></code></li>
+<li><code><a title="services.Nlp.SemanticClassifier.encode" href="#services.Nlp.SemanticClassifier.encode">encode</a></code></li>
+<li><code><a title="services.Nlp.SemanticClassifier.encode_batch" href="#services.Nlp.SemanticClassifier.encode_batch">encode_batch</a></code></li>
+<li><code><a title="services.Nlp.SemanticClassifier.model" href="#services.Nlp.SemanticClassifier.model">model</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

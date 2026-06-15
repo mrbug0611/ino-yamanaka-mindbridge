@@ -1,0 +1,1488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>models API documentation</title>
+<meta name="description" content="Pydantic models for MindBridge API">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>models</code></h1>
+</header>
+<section id="section-intro">
+<p>Pydantic models for MindBridge API</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="models.gen_id"><code class="name flex">
+<span>def <span class="ident">gen_id</span></span>(<span>) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def gen_id() -&gt; str:
+    return str(uuid.uuid4()) # value used for unique identifiers</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="models.ClassificationResult"><code class="flex name class">
+<span>class <span class="ident">ClassificationResult</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ClassificationResult(BaseModel):
+    topic: str
+    urgency: str
+    signal_type: str
+    routed_to: list[str]
+    confidence: float</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.ClassificationResult.confidence"><code class="name">var <span class="ident">confidence</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.ClassificationResult.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.ClassificationResult.routed_to"><code class="name">var <span class="ident">routed_to</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.ClassificationResult.signal_type"><code class="name">var <span class="ident">signal_type</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.ClassificationResult.topic"><code class="name">var <span class="ident">topic</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.ClassificationResult.urgency"><code class="name">var <span class="ident">urgency</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.ReactionAdd"><code class="flex name class">
+<span>class <span class="ident">ReactionAdd</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ReactionAdd(BaseModel):
+    user_id: str
+    reaction: str = Field(..., pattern=&#34;^(⚡|💡|❓|✅|🔥|👁️)$&#34;)</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.ReactionAdd.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.ReactionAdd.reaction"><code class="name">var <span class="ident">reaction</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.ReactionAdd.user_id"><code class="name">var <span class="ident">user_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.RoutingRequest"><code class="flex name class">
+<span>class <span class="ident">RoutingRequest</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RoutingRequest(BaseModel):
+    content: str
+    session_id: str
+    sender_id: str
+    available_users: list[dict[str, Any]]</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.RoutingRequest.available_users"><code class="name">var <span class="ident">available_users</span> : list[dict[str, typing.Any]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.RoutingRequest.content"><code class="name">var <span class="ident">content</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.RoutingRequest.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.RoutingRequest.sender_id"><code class="name">var <span class="ident">sender_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.RoutingRequest.session_id"><code class="name">var <span class="ident">session_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.SessionCreate"><code class="flex name class">
+<span>class <span class="ident">SessionCreate</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SessionCreate(BaseModel):
+    title: str = Field(..., min_length=1, max_length=128)
+    description: str | None = None # specify data types without enforcing them at runtime can be string or none
+    host_id: str
+    topic: str | None = None</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.SessionCreate.description"><code class="name">var <span class="ident">description</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionCreate.host_id"><code class="name">var <span class="ident">host_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionCreate.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionCreate.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionCreate.topic"><code class="name">var <span class="ident">topic</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.SessionResponse"><code class="flex name class">
+<span>class <span class="ident">SessionResponse</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SessionResponse(BaseModel):
+    id: str
+    title: str
+    description: str | None
+    host_id: str
+    status: str
+    topic: str | None
+    urgency_level: str
+    created_at: str
+    ended_at: str | None
+    summary: dict[str, Any] | None
+    member_count: int = 0
+    members: list[dict[str, Any]] = Field(default_factory=list)</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.SessionResponse.created_at"><code class="name">var <span class="ident">created_at</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.description"><code class="name">var <span class="ident">description</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.ended_at"><code class="name">var <span class="ident">ended_at</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.host_id"><code class="name">var <span class="ident">host_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.member_count"><code class="name">var <span class="ident">member_count</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.members"><code class="name">var <span class="ident">members</span> : list[dict[str, typing.Any]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.status"><code class="name">var <span class="ident">status</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.summary"><code class="name">var <span class="ident">summary</span> : dict[str, typing.Any] | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.topic"><code class="name">var <span class="ident">topic</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionResponse.urgency_level"><code class="name">var <span class="ident">urgency_level</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.SessionSummary"><code class="flex name class">
+<span>class <span class="ident">SessionSummary</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SessionSummary(BaseModel):
+    key_points: list[str]
+    unresolved_questions: list[str]
+    action_items: list[dict[str, str]]
+    next_steps: list[str]
+    topic_clusters: list[dict[str, Any]]</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.SessionSummary.action_items"><code class="name">var <span class="ident">action_items</span> : list[dict[str, str]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionSummary.key_points"><code class="name">var <span class="ident">key_points</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionSummary.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionSummary.next_steps"><code class="name">var <span class="ident">next_steps</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionSummary.topic_clusters"><code class="name">var <span class="ident">topic_clusters</span> : list[dict[str, typing.Any]]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SessionSummary.unresolved_questions"><code class="name">var <span class="ident">unresolved_questions</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.SignalCreate"><code class="flex name class">
+<span>class <span class="ident">SignalCreate</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SignalCreate(BaseModel):
+    session_id: str
+    sender_id: str
+    content: str = Field(..., min_length=1, max_length=4096)
+    signal_type: str = &#34;thought&#34;
+    parent_id: str | None = None</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.SignalCreate.content"><code class="name">var <span class="ident">content</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalCreate.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalCreate.parent_id"><code class="name">var <span class="ident">parent_id</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalCreate.sender_id"><code class="name">var <span class="ident">sender_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalCreate.session_id"><code class="name">var <span class="ident">session_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalCreate.signal_type"><code class="name">var <span class="ident">signal_type</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.SignalResponse"><code class="flex name class">
+<span>class <span class="ident">SignalResponse</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SignalResponse(BaseModel):
+    id: str
+    session_id: str
+    sender_id: str
+    sender_name: str
+    sender_color: str
+    content: str
+    signal_type: str
+    topic: str | None
+    urgency: str
+    routed_to: list[str]
+    reactions: dict[str, int]
+    parent_id: str | None
+    created_at: str</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.SignalResponse.content"><code class="name">var <span class="ident">content</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.created_at"><code class="name">var <span class="ident">created_at</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.parent_id"><code class="name">var <span class="ident">parent_id</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.reactions"><code class="name">var <span class="ident">reactions</span> : dict[str, int]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.routed_to"><code class="name">var <span class="ident">routed_to</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.sender_color"><code class="name">var <span class="ident">sender_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.sender_id"><code class="name">var <span class="ident">sender_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.sender_name"><code class="name">var <span class="ident">sender_name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.session_id"><code class="name">var <span class="ident">session_id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.signal_type"><code class="name">var <span class="ident">signal_type</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.topic"><code class="name">var <span class="ident">topic</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.SignalResponse.urgency"><code class="name">var <span class="ident">urgency</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.UserCreate"><code class="flex name class">
+<span>class <span class="ident">UserCreate</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UserCreate(BaseModel): # core data block for data validation and parsing in python
+    username: str = Field(..., min_length=2, max_length=32)
+    display_name: str = Field(..., min_length=1, max_length=64)
+    skills: list[str] = Field(default_factory=list)
+    avatar_color: str = &#34;#7C3AED&#34;</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.UserCreate.avatar_color"><code class="name">var <span class="ident">avatar_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserCreate.display_name"><code class="name">var <span class="ident">display_name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserCreate.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserCreate.skills"><code class="name">var <span class="ident">skills</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserCreate.username"><code class="name">var <span class="ident">username</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.UserResponse"><code class="flex name class">
+<span>class <span class="ident">UserResponse</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UserResponse(BaseModel):
+    id: str
+    username: str
+    display_name: str
+    skills: list[str]
+    avatar_color: str
+    created_at: str
+    last_active: str</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.UserResponse.avatar_color"><code class="name">var <span class="ident">avatar_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserResponse.created_at"><code class="name">var <span class="ident">created_at</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserResponse.display_name"><code class="name">var <span class="ident">display_name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserResponse.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserResponse.last_active"><code class="name">var <span class="ident">last_active</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserResponse.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserResponse.skills"><code class="name">var <span class="ident">skills</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.UserResponse.username"><code class="name">var <span class="ident">username</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.WSMessage"><code class="flex name class">
+<span>class <span class="ident">WSMessage</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class WSMessage(BaseModel):
+    type: str
+    payload: dict[str, Any]
+    sender_id: str | None = None
+    session_id: str | None = None</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.WSMessage.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSMessage.payload"><code class="name">var <span class="ident">payload</span> : dict[str, typing.Any]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSMessage.sender_id"><code class="name">var <span class="ident">sender_id</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSMessage.session_id"><code class="name">var <span class="ident">session_id</span> : str | None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSMessage.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="models.WSSignalBroadcast"><code class="flex name class">
+<span>class <span class="ident">WSSignalBroadcast</span></span>
+<span>(</span><span>**data: Any)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class WSSignalBroadcast(BaseModel):
+    type: str = &#34;signal&#34;
+    signal: dict[str, Any]
+    routing: list[str]
+    urgency: str</code></pre>
+</details>
+<div class="desc"><div class="admonition abstract">
+<p class="admonition-title">Usage Documentation</p>
+<p><a href="../concepts/models.md">Models</a></p>
+</div>
+<p>A base class for creating Pydantic models.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>__class_vars__</code></strong></dt>
+<dd>The names of the class variables defined on the model.</dd>
+<dt><strong><code>__private_attributes__</code></strong></dt>
+<dd>Metadata about the private attributes of the model.</dd>
+<dt><strong><code>__signature__</code></strong></dt>
+<dd>The synthesized <code>__init__</code> [<code>Signature</code>][inspect.Signature] of the model.</dd>
+<dt><strong><code>__pydantic_complete__</code></strong></dt>
+<dd>Whether model building is completed, or if there are still undefined fields.</dd>
+<dt><strong><code>__pydantic_core_schema__</code></strong></dt>
+<dd>The core schema of the model.</dd>
+<dt><strong><code>__pydantic_custom_init__</code></strong></dt>
+<dd>Whether the model has a custom <code>__init__</code> function.</dd>
+<dt><strong><code>__pydantic_decorators__</code></strong></dt>
+<dd>Metadata containing the decorators defined on the model.
+This replaces <code>Model.__validators__</code> and <code>Model.__root_validators__</code> from Pydantic V1.</dd>
+<dt><strong><code>__pydantic_generic_metadata__</code></strong></dt>
+<dd>A dictionary containing metadata about generic Pydantic models.
+The <code>origin</code> and <code>args</code> items map to the [<code>__origin__</code>][genericalias.<strong>origin</strong>]
+and [<code>__args__</code>][genericalias.<strong>args</strong>] attributes of [generic aliases][types-genericalias],
+and the <code>parameter</code> item maps to the <code>__parameter__</code> attribute of generic classes.</dd>
+<dt><strong><code>__pydantic_parent_namespace__</code></strong></dt>
+<dd>Parent namespace of the model, used for automatic rebuilding of models.</dd>
+<dt><strong><code>__pydantic_post_init__</code></strong></dt>
+<dd>The name of the post-init method for the model, if defined.</dd>
+<dt><strong><code>__pydantic_root_model__</code></strong></dt>
+<dd>Whether the model is a [<code>RootModel</code>][pydantic.root_model.RootModel].</dd>
+<dt><strong><code>__pydantic_serializer__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaSerializer</code> used to dump instances of the model.</dd>
+<dt><strong><code>__pydantic_validator__</code></strong></dt>
+<dd>The <code>pydantic-core</code> <code>SchemaValidator</code> used to validate instances of the model.</dd>
+<dt><strong><code>__pydantic_fields__</code></strong></dt>
+<dd>A dictionary of field names and their corresponding [<code>FieldInfo</code>][pydantic.fields.FieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_computed_fields__</code></strong></dt>
+<dd>A dictionary of computed field names and their corresponding [<code>ComputedFieldInfo</code>][pydantic.fields.ComputedFieldInfo] objects.</dd>
+<dt><strong><code>__pydantic_extra__</code></strong></dt>
+<dd>A dictionary containing extra values, if [<code>extra</code>][pydantic.config.ConfigDict.extra]
+is set to <code>'allow'</code>.</dd>
+<dt><strong><code>__pydantic_fields_set__</code></strong></dt>
+<dd>The names of fields explicitly set during instantiation.</dd>
+<dt><strong><code>__pydantic_private__</code></strong></dt>
+<dd>Values of private attributes set on the model instance.</dd>
+</dl>
+<p>Create a new model by parsing and validating input data from keyword arguments.</p>
+<p>Raises [<code>ValidationError</code>][pydantic_core.ValidationError] if the input data cannot be
+validated to form a valid model.</p>
+<p><code>self</code> is explicitly positional-only to allow <code>self</code> as a field name.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>pydantic.main.BaseModel</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="models.WSSignalBroadcast.model_config"><code class="name">var <span class="ident">model_config</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSSignalBroadcast.routing"><code class="name">var <span class="ident">routing</span> : list[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSSignalBroadcast.signal"><code class="name">var <span class="ident">signal</span> : dict[str, typing.Any]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSSignalBroadcast.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="models.WSSignalBroadcast.urgency"><code class="name">var <span class="ident">urgency</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="models.gen_id" href="#models.gen_id">gen_id</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="models.ClassificationResult" href="#models.ClassificationResult">ClassificationResult</a></code></h4>
+<ul class="two-column">
+<li><code><a title="models.ClassificationResult.confidence" href="#models.ClassificationResult.confidence">confidence</a></code></li>
+<li><code><a title="models.ClassificationResult.model_config" href="#models.ClassificationResult.model_config">model_config</a></code></li>
+<li><code><a title="models.ClassificationResult.routed_to" href="#models.ClassificationResult.routed_to">routed_to</a></code></li>
+<li><code><a title="models.ClassificationResult.signal_type" href="#models.ClassificationResult.signal_type">signal_type</a></code></li>
+<li><code><a title="models.ClassificationResult.topic" href="#models.ClassificationResult.topic">topic</a></code></li>
+<li><code><a title="models.ClassificationResult.urgency" href="#models.ClassificationResult.urgency">urgency</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.ReactionAdd" href="#models.ReactionAdd">ReactionAdd</a></code></h4>
+<ul class="">
+<li><code><a title="models.ReactionAdd.model_config" href="#models.ReactionAdd.model_config">model_config</a></code></li>
+<li><code><a title="models.ReactionAdd.reaction" href="#models.ReactionAdd.reaction">reaction</a></code></li>
+<li><code><a title="models.ReactionAdd.user_id" href="#models.ReactionAdd.user_id">user_id</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.RoutingRequest" href="#models.RoutingRequest">RoutingRequest</a></code></h4>
+<ul class="">
+<li><code><a title="models.RoutingRequest.available_users" href="#models.RoutingRequest.available_users">available_users</a></code></li>
+<li><code><a title="models.RoutingRequest.content" href="#models.RoutingRequest.content">content</a></code></li>
+<li><code><a title="models.RoutingRequest.model_config" href="#models.RoutingRequest.model_config">model_config</a></code></li>
+<li><code><a title="models.RoutingRequest.sender_id" href="#models.RoutingRequest.sender_id">sender_id</a></code></li>
+<li><code><a title="models.RoutingRequest.session_id" href="#models.RoutingRequest.session_id">session_id</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.SessionCreate" href="#models.SessionCreate">SessionCreate</a></code></h4>
+<ul class="">
+<li><code><a title="models.SessionCreate.description" href="#models.SessionCreate.description">description</a></code></li>
+<li><code><a title="models.SessionCreate.host_id" href="#models.SessionCreate.host_id">host_id</a></code></li>
+<li><code><a title="models.SessionCreate.model_config" href="#models.SessionCreate.model_config">model_config</a></code></li>
+<li><code><a title="models.SessionCreate.title" href="#models.SessionCreate.title">title</a></code></li>
+<li><code><a title="models.SessionCreate.topic" href="#models.SessionCreate.topic">topic</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.SessionResponse" href="#models.SessionResponse">SessionResponse</a></code></h4>
+<ul class="two-column">
+<li><code><a title="models.SessionResponse.created_at" href="#models.SessionResponse.created_at">created_at</a></code></li>
+<li><code><a title="models.SessionResponse.description" href="#models.SessionResponse.description">description</a></code></li>
+<li><code><a title="models.SessionResponse.ended_at" href="#models.SessionResponse.ended_at">ended_at</a></code></li>
+<li><code><a title="models.SessionResponse.host_id" href="#models.SessionResponse.host_id">host_id</a></code></li>
+<li><code><a title="models.SessionResponse.id" href="#models.SessionResponse.id">id</a></code></li>
+<li><code><a title="models.SessionResponse.member_count" href="#models.SessionResponse.member_count">member_count</a></code></li>
+<li><code><a title="models.SessionResponse.members" href="#models.SessionResponse.members">members</a></code></li>
+<li><code><a title="models.SessionResponse.model_config" href="#models.SessionResponse.model_config">model_config</a></code></li>
+<li><code><a title="models.SessionResponse.status" href="#models.SessionResponse.status">status</a></code></li>
+<li><code><a title="models.SessionResponse.summary" href="#models.SessionResponse.summary">summary</a></code></li>
+<li><code><a title="models.SessionResponse.title" href="#models.SessionResponse.title">title</a></code></li>
+<li><code><a title="models.SessionResponse.topic" href="#models.SessionResponse.topic">topic</a></code></li>
+<li><code><a title="models.SessionResponse.urgency_level" href="#models.SessionResponse.urgency_level">urgency_level</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.SessionSummary" href="#models.SessionSummary">SessionSummary</a></code></h4>
+<ul class="">
+<li><code><a title="models.SessionSummary.action_items" href="#models.SessionSummary.action_items">action_items</a></code></li>
+<li><code><a title="models.SessionSummary.key_points" href="#models.SessionSummary.key_points">key_points</a></code></li>
+<li><code><a title="models.SessionSummary.model_config" href="#models.SessionSummary.model_config">model_config</a></code></li>
+<li><code><a title="models.SessionSummary.next_steps" href="#models.SessionSummary.next_steps">next_steps</a></code></li>
+<li><code><a title="models.SessionSummary.topic_clusters" href="#models.SessionSummary.topic_clusters">topic_clusters</a></code></li>
+<li><code><a title="models.SessionSummary.unresolved_questions" href="#models.SessionSummary.unresolved_questions">unresolved_questions</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.SignalCreate" href="#models.SignalCreate">SignalCreate</a></code></h4>
+<ul class="two-column">
+<li><code><a title="models.SignalCreate.content" href="#models.SignalCreate.content">content</a></code></li>
+<li><code><a title="models.SignalCreate.model_config" href="#models.SignalCreate.model_config">model_config</a></code></li>
+<li><code><a title="models.SignalCreate.parent_id" href="#models.SignalCreate.parent_id">parent_id</a></code></li>
+<li><code><a title="models.SignalCreate.sender_id" href="#models.SignalCreate.sender_id">sender_id</a></code></li>
+<li><code><a title="models.SignalCreate.session_id" href="#models.SignalCreate.session_id">session_id</a></code></li>
+<li><code><a title="models.SignalCreate.signal_type" href="#models.SignalCreate.signal_type">signal_type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.SignalResponse" href="#models.SignalResponse">SignalResponse</a></code></h4>
+<ul class="two-column">
+<li><code><a title="models.SignalResponse.content" href="#models.SignalResponse.content">content</a></code></li>
+<li><code><a title="models.SignalResponse.created_at" href="#models.SignalResponse.created_at">created_at</a></code></li>
+<li><code><a title="models.SignalResponse.id" href="#models.SignalResponse.id">id</a></code></li>
+<li><code><a title="models.SignalResponse.model_config" href="#models.SignalResponse.model_config">model_config</a></code></li>
+<li><code><a title="models.SignalResponse.parent_id" href="#models.SignalResponse.parent_id">parent_id</a></code></li>
+<li><code><a title="models.SignalResponse.reactions" href="#models.SignalResponse.reactions">reactions</a></code></li>
+<li><code><a title="models.SignalResponse.routed_to" href="#models.SignalResponse.routed_to">routed_to</a></code></li>
+<li><code><a title="models.SignalResponse.sender_color" href="#models.SignalResponse.sender_color">sender_color</a></code></li>
+<li><code><a title="models.SignalResponse.sender_id" href="#models.SignalResponse.sender_id">sender_id</a></code></li>
+<li><code><a title="models.SignalResponse.sender_name" href="#models.SignalResponse.sender_name">sender_name</a></code></li>
+<li><code><a title="models.SignalResponse.session_id" href="#models.SignalResponse.session_id">session_id</a></code></li>
+<li><code><a title="models.SignalResponse.signal_type" href="#models.SignalResponse.signal_type">signal_type</a></code></li>
+<li><code><a title="models.SignalResponse.topic" href="#models.SignalResponse.topic">topic</a></code></li>
+<li><code><a title="models.SignalResponse.urgency" href="#models.SignalResponse.urgency">urgency</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.UserCreate" href="#models.UserCreate">UserCreate</a></code></h4>
+<ul class="">
+<li><code><a title="models.UserCreate.avatar_color" href="#models.UserCreate.avatar_color">avatar_color</a></code></li>
+<li><code><a title="models.UserCreate.display_name" href="#models.UserCreate.display_name">display_name</a></code></li>
+<li><code><a title="models.UserCreate.model_config" href="#models.UserCreate.model_config">model_config</a></code></li>
+<li><code><a title="models.UserCreate.skills" href="#models.UserCreate.skills">skills</a></code></li>
+<li><code><a title="models.UserCreate.username" href="#models.UserCreate.username">username</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.UserResponse" href="#models.UserResponse">UserResponse</a></code></h4>
+<ul class="two-column">
+<li><code><a title="models.UserResponse.avatar_color" href="#models.UserResponse.avatar_color">avatar_color</a></code></li>
+<li><code><a title="models.UserResponse.created_at" href="#models.UserResponse.created_at">created_at</a></code></li>
+<li><code><a title="models.UserResponse.display_name" href="#models.UserResponse.display_name">display_name</a></code></li>
+<li><code><a title="models.UserResponse.id" href="#models.UserResponse.id">id</a></code></li>
+<li><code><a title="models.UserResponse.last_active" href="#models.UserResponse.last_active">last_active</a></code></li>
+<li><code><a title="models.UserResponse.model_config" href="#models.UserResponse.model_config">model_config</a></code></li>
+<li><code><a title="models.UserResponse.skills" href="#models.UserResponse.skills">skills</a></code></li>
+<li><code><a title="models.UserResponse.username" href="#models.UserResponse.username">username</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.WSMessage" href="#models.WSMessage">WSMessage</a></code></h4>
+<ul class="">
+<li><code><a title="models.WSMessage.model_config" href="#models.WSMessage.model_config">model_config</a></code></li>
+<li><code><a title="models.WSMessage.payload" href="#models.WSMessage.payload">payload</a></code></li>
+<li><code><a title="models.WSMessage.sender_id" href="#models.WSMessage.sender_id">sender_id</a></code></li>
+<li><code><a title="models.WSMessage.session_id" href="#models.WSMessage.session_id">session_id</a></code></li>
+<li><code><a title="models.WSMessage.type" href="#models.WSMessage.type">type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="models.WSSignalBroadcast" href="#models.WSSignalBroadcast">WSSignalBroadcast</a></code></h4>
+<ul class="">
+<li><code><a title="models.WSSignalBroadcast.model_config" href="#models.WSSignalBroadcast.model_config">model_config</a></code></li>
+<li><code><a title="models.WSSignalBroadcast.routing" href="#models.WSSignalBroadcast.routing">routing</a></code></li>
+<li><code><a title="models.WSSignalBroadcast.signal" href="#models.WSSignalBroadcast.signal">signal</a></code></li>
+<li><code><a title="models.WSSignalBroadcast.type" href="#models.WSSignalBroadcast.type">type</a></code></li>
+<li><code><a title="models.WSSignalBroadcast.urgency" href="#models.WSSignalBroadcast.urgency">urgency</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
