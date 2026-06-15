@@ -1,0 +1,13 @@
+# Web framework
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# Database
+asyncpg>=0.29
+
+# NLP (sentence-transformers pulls torch; use CPU-only torch to keep image small)
+sentence-transformers>=3.0
+numpy>=1.26
+
+# Pydantic (FastAPI uses this for models)
+pydantic>=2.0

@@ -1,0 +1,50 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: .          # root of the repo (where main.py lives)
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env        # your real secrets go here (see .env.example)
+    environment:
+      # Override / add DATABASE_URL so the app can find Postgres
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - "8000:8000"       # optional: direct API access during development
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      # The frontend is built with /api as the base — nginx proxies it to the backend.
+      # Change these only if you need the browser to call the backend directly.
+      args:
+        VITE_API_BASE: ${VITE_API_BASE}
+        VITE_WS_BASE: ${VITE_WS_BASE}
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

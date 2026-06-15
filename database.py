@@ -4,6 +4,7 @@ Database Configuration for MindBridge
 PostgreSQL via asyncpg connection pool
 
 """
+import asyncio
 import json
 import logging
 import os
@@ -60,12 +61,28 @@ async def init_db() -> None:
     global _pool
     logger.info("Connecting to PostgreSQL...")
 
-    _pool = await asyncpg.create_pool(
-        DATABASE_URL,
-        min_size=2, # number of connections pool is initialized with
-        max_size=10, # max number of connections pool can have
-        command_timeout=30,
-    )
+    for attempt in range(10):
+        try:
+
+
+            _pool = await asyncpg.create_pool(
+                DATABASE_URL,
+                min_size=2, # number of connections pool is initialized with
+                max_size=10, # max number of connections pool can have
+                command_timeout=30,
+            )
+
+            break
+
+        except (OSError, asyncpg.PostgresConnectionError, asyncpg.InvalidCatalogNameError) as e:
+            logger.warning(f"DB not ready (attempt {attempt + 1}/10): {e}")
+
+            if attempt < 9:
+                await asyncio.sleep(3)
+
+            else:
+                raise RuntimeError("Could not connect to PostgreSQL after 10 attempts") from e
+
 
     # register JSON/JSONB codecs so Python flow in/out transparently
     async with _pool.acquire() as conn:
