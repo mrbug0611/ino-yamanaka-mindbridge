@@ -4,8 +4,6 @@
 
 MindBridge is a WebSocket-first team collaboration tool where participants send typed "signals" — tagged messages categorized by topic and urgency — into shared sessions. An NLP service automatically classifies each signal, determines who in the session is best suited to see it based on their skill profile, and routes it accordingly. Everyone sees the signal, but those outside the routing target receive a dimmed "shadow" view.
 
-Inspired by Ino Yamanaka's telepathic coordination from *Naruto*.
-
 ---
 
 ## Features
@@ -70,7 +68,7 @@ When a signal is submitted:
 
 1. The backend NLP service classifies the content (topic + urgency)
 2. Member skills are fetched from the DB and semantically compared to the signal
-3. Routing targets are determined; critical signals broadcast to everyone
+3. Routing targets are determined; critical signals are broadcast to everyone
 4. `ConnectionManager` sends the full signal to routed users and a `signal_shadow` to the rest
 5. The signal is persisted to PostgreSQL
 
